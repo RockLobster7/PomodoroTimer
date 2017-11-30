@@ -1,73 +1,55 @@
 $(document).ready(function () {
-    // https://www.reddit.com/r/learnjavascript/comments/3rf800/chaining_settimeout_with_promises_good_idea/?st=jahzwqem&sh=fe61aeb2
 
-    function sleep(time) {
-        return new Promise(resolve => {
-            setTimeout(resolve, time);
-        });
+
+    var Timer = function () {
+
+        var duration = 0;
+        var paused = null;
+        var start = false;
+        var counterID = undefined;
+
+        this.setDuration = (num) => duration = num;
+        this.getDuration = () => duration;
+        this.setPause = (val) => true;
+        this.isPaused = () => paused;
+        this.getCounterID = () => counterID;
+
+        this.start = (xduration) => {
+            return new Promise(resolve => {
+
+                $('#countdown').text(xduration);
+
+                //decrenent the display every second
+                counterID = setInterval(function () {
+                    if ($('#countdown').text() > 0) {
+                        $('#countdown').text($('#countdown').text() - 1);
+                    } else {
+                        clearInterval(counterID);
+                        resolve();
+                    }
+                }, 1000);
+                return (this);
+            });
+        }
     }
 
-    var timeA = 500;
-    var timeB = 500;
-    var timeC = 500;
+    var myTimer = new Timer();
 
-    sleep(timeA).then(() => {
-        console.log('a')
-        return sleep(timeB);
-    }).then(() => {
-        console.log('b')
-        return sleep(timeC)
-    }).then(() => {
-        console.log('c')
-    })
-
-
-    function startTimer(duration) {
-        return new Promise(resolve => {
-            $('#countdown').text(duration);
-            //decrenent the display every second
-            var counterID = setTimeout(function () {
-                // if ($('#countdown').text() > 0) {
-                //     $('#countdown').text($('#countdown').text() - 1);
-                // } else {
-                //     clearInterval(counterID);
-                // }
-                resolve (alert('hello' + duration));
-            }, 3000);
-        });
-    }
-
-    // startTimer($('#workValue').val())
-    // startTimer($('#restValue').val())
-
-    // function startTimer(duration) {
-    //     $('#countdown').text(duration);
-    //     //decrenent the display every second
-    //     var counterID = setInterval(function () {
-    //         if ($('#countdown').text() > 0) {
-    //             $('#countdown').text($('#countdown').text() - 1);
-    //         } else {
-    //             clearInterval(counterID);
-    //         }
-    //     }, 1000);
-    // };
-
+    myTimer.setDuration(9);
+    console.log(myTimer.getDuration());
+    console.log(myTimer.getCounterID());
 
 
     $('#start').click(function () {
+        // Timer($('#workValue').val()).then(() =>
+        //     Timer($('#restValue').val()));
 
+        myTimer.start($('#workValue').val()).then(() => myTimer.start($('#restValue').val()));
+    });
 
-        // startTimer($('#workValue').val()).then(() => {
-        //     return startTimer($('#restValue').val());
-        // });
-
-
-        startTimer($('#workValue').val()).then(() => 
-            startTimer($('#restValue').val()) );
-
-
-        // startTimer($('#restValue').val())
-        // startTimer($('#workValue').val());
-
+    $('#pause').click(function () {
+        console.log(myTimer.getCounterID());
     });
 });
+
+
