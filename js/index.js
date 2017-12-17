@@ -1,19 +1,24 @@
 $(document).ready(function () {
 
-    //format time to mm:ss
-    var date = new Date(null);
-    date.setSeconds(1500);
-    console.log(date.toISOString().substr(14, 5));
+    //initialise display
+    updateDisplay($('#workValue').val());
 
+    function updateDisplay(secs) {
+        //format time to mm:ss
+        var date = new Date(null);
+        date.setSeconds(secs);
+        //display formatted time
+        $('#countdown').text(date.toISOString().substr(14, 5));
+    }
 
-    //state object just adds some consitency when assigning values (helps with typos)
+    // object just adds some consitency when assigning values (helps with typos)
     var state = {
         "stopped": "stopped",
         "running": "running",
         "paused": "paused"
     }
 
-    //cycle object just adds some consitency when assigning values (helps with typos)
+    // object just adds some consitency when assigning values (helps with typos)
     var cycle = {
         "work": "work",
         "rest": "rest"
@@ -34,6 +39,7 @@ $(document).ready(function () {
 
         //public methods
         this.start = (duration, cycle) => {
+
             return new Promise((resolve, reject) => {
 
                 //start the timer if its currently stopped
@@ -42,46 +48,28 @@ $(document).ready(function () {
                     timerState = state.running;
                     cycleName = cycle;
 
-                    $('#countdown').text(duration); //temporary assignment until we figure out the UI ***********
+                    updateDisplay(duration);
 
-                    console.log('cycleName: ' + cycleName);
-                    console.log('duration: ' + duration);
-                    console.log('state: ' + timerState);
-
-                    //start the timer. 
-                    //Timer 'ticks' every second checking the following logic
+                    //start the timer. //Timer 'ticks' every second
                     counterID = setInterval(function () {
 
-                        //timer will run until the display reads zero
-                        if ($('#countdown').text() > 0) {
+                        //timer will run until we reach zero
+                        if (duration > 0) {
 
                             switch (timerState) {
-
-                                //countdown the display while we're in 'running' state
                                 case state.running:
-                                    $('#countdown').text($('#countdown').text() - 1);
+                                    duration--;
+                                    updateDisplay(duration);
                                     break;
 
-                                    //dont update the display if we're in paused state
-                                    //dummy case block added to make the logic easier to read.
-                                case state.paused:
-                                    break;
-
-                                    //if 'stopped'; end the timer and prematurely exit the promise
                                 case state.stopped:
                                     clearInterval(counterID);
-                                    console.log('cycle STOPPED');
-                                    console.log('cycleName: ' + cycleName);
-                                    console.log('state: ' + timerState);
-                                    reject(new Error('Reset'));
+                                    reject(new Error('Stop'));
                             }
                         } else {
                             //once the display reaches zero, end the timer and resolve the promise
                             clearInterval(counterID);
                             timerState = state.stopped;
-                            console.log('cycle Finished');
-                            console.log('cycleName: ' + cycleName);
-                            console.log('state: ' + timerState);
                             resolve();
                         }
                     }, 1000);
@@ -124,12 +112,11 @@ $(document).ready(function () {
         starTimer();
 
         function starTimer() {
-
-            //start timer work
+            //start work timer
             myTimer.start($('#workValue').val(), cycle.work)
                 .then(() =>
 
-                    //start timer rest
+                    //start rest timer
                     myTimer.start($('#restValue').val(), cycle.rest))
                 .then(() => {
                     myTimer.setTimerState(state.stopped);
@@ -138,8 +125,8 @@ $(document).ready(function () {
                     //cycle the timer indefinetely until stopped
                     starTimer();
                 })
-                .catch((error) => {
-                    console.log(error.message);
+                .catch((stop) => {
+                    console.log(stop.message);
                 });
         }
     });
@@ -150,7 +137,9 @@ $(document).ready(function () {
     });
 
     $('#reset').click(function () {
-        console.log('reset clicked - but we are going to just STOP for now');
+        console.log('reset clicked');
         myTimer.stop();
+        //re-initialise display
+        updateDisplay($('#workValue').val());
     });
 });
