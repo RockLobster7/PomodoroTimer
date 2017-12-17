@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    //format time to mm:ss
+    var date = new Date(null);
+    date.setSeconds(1500);
+    console.log(date.toISOString().substr(14, 5));
+
+
     //state object just adds some consitency when assigning values (helps with typos)
     var state = {
         "stopped": "stopped",
@@ -90,20 +96,21 @@ $(document).ready(function () {
 
         this.pause = () => {
             switch (timerState) {
+
+                //resume if paused
                 case 'paused':
-                    //resume if paused
                     timerState = state.running;
                     console.log('state: ' + timerState);
                     break;
 
-                case 'running':
                     //pause if running
+                case 'running':
                     timerState = state.paused;
                     console.log('state: ' + timerState);
                     break;
 
-                case 'stopped':
                     //do nothing if stopped
+                case 'stopped':
                     console.log('state: ' + timerState);
                     console.log('Nothing to pause because timer is stopped.');
             }
@@ -114,18 +121,27 @@ $(document).ready(function () {
 
     $('#start').click(function () {
         console.log('start clicked');
+        starTimer();
 
-        myTimer.start($('#workValue').val(), cycle.work)
-            .then(() =>
-                myTimer.start($('#restValue').val(), cycle.rest))
-            .then(() => {
-                myTimer.setTimerState(state.stopped);
-                console.log(myTimer.getTimerState());
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
+        function starTimer() {
 
+            //start timer work
+            myTimer.start($('#workValue').val(), cycle.work)
+                .then(() =>
+
+                    //start timer rest
+                    myTimer.start($('#restValue').val(), cycle.rest))
+                .then(() => {
+                    myTimer.setTimerState(state.stopped);
+                    console.log(myTimer.getTimerState());
+
+                    //cycle the timer indefinetely until stopped
+                    starTimer();
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
     });
 
     $('#pause').click(function () {
