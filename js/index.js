@@ -108,27 +108,35 @@ $(document).ready(function () {
     var myTimer = new Timer();
 
     $('#start').click(function () {
+
         console.log('start clicked');
         starTimer();
 
-        function starTimer() {
-            //start work timer
-            myTimer.start($('#workValue').val(), cycle.work)
-                .then(() =>
 
-                    //start rest timer
-                    myTimer.start($('#restValue').val(), cycle.rest))
+        function starTimer() {
+            //work timer
+            console.log('work');
+            $('#status').removeClass('rest-status');
+            $('#status').addClass('work-status');
+            myTimer.start($('#workValue').val(), cycle.work)
                 .then(() => {
-                    myTimer.setTimerState(state.stopped);
-                    console.log(myTimer.getTimerState());
+
+                    //rest timer
+                    console.log('rest');
+                    $('#status').removeClass('work-status');
+                    $('#status').addClass('rest-status');
+                    return (myTimer.start($('#restValue').val(), cycle.rest));
+                }).then(() => {
 
                     //cycle the timer indefinetely until stopped
-                    starTimer();
-                })
-                .catch((stop) => {
+                    console.log('start over');
+                    return (starTimer());
+
+                }).catch((stop) => {
                     console.log(stop.message);
                 });
         }
+
     });
 
     $('#pause').click(function () {
