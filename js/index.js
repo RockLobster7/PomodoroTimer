@@ -1,5 +1,17 @@
 $(document).ready(function () {
 
+    //initialise touchspin controls
+    $("input[name='Work']").TouchSpin({
+    });
+   
+    $("#workValue").change(function(){
+        alert ($('#workValue').val());
+        // alert("work has been changed");
+    });
+
+    $("input[name='Rest']").TouchSpin({
+    });
+
     //initialise display
     updateDisplay($('#workValue').val());
 
@@ -129,7 +141,7 @@ $(document).ready(function () {
                 }).then(() => {
 
                     //cycle the timer indefinetely until stopped
-                    console.log('start over');
+                    console.log('next cycle');
                     return (starTimer());
 
                 }).catch((stop) => {
