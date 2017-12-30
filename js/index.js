@@ -1,27 +1,16 @@
 $(document).ready(function () {
 
     //initialise touchspin controls
-    $("input[name='Work']").TouchSpin({
-    });
-   
-    $("#workValue").change(function(){
-        alert ($('#workValue').val());
+    $("input[name='Work']").TouchSpin({});
+
+    $("#workValue").change(function () {
+        // alert($('#workValue').val());
         // alert("work has been changed");
     });
 
-    $("input[name='Rest']").TouchSpin({
-    });
+    $("input[name='Rest']").TouchSpin({});
 
-    //initialise display
-    updateDisplay($('#workValue').val());
 
-    function updateDisplay(secs) {
-        //format time to mm:ss
-        var date = new Date(null);
-        date.setSeconds(secs);
-        //display formatted time
-        $('#countdown').text(date.toISOString().substr(14, 5));
-    }
 
     // object just adds some consitency when assigning values (helps with typos)
     var state = {
@@ -32,6 +21,7 @@ $(document).ready(function () {
 
     // object just adds some consitency when assigning values (helps with typos)
     var cycle = {
+        "ready": "ready",
         "work": "work",
         "rest": "rest"
     }
@@ -40,7 +30,8 @@ $(document).ready(function () {
         //private properties
         var timerState = state.stopped;
         var counterID;
-        var cycleName;
+        var cycleName = cycle.ready;
+        // var currentDuration;
 
         //public properties
         this.setTimerState = (val) => timerState = val;
@@ -48,6 +39,7 @@ $(document).ready(function () {
         this.getCounterID = () => counterID;
         this.setCycleName = (val) => cycleName = val;
         this.getCycleName = () => cycleName;
+        // this.getDuration = () => currentDuration;
 
         //public methods
         this.start = (duration, cycle) => {
@@ -59,7 +51,6 @@ $(document).ready(function () {
 
                     timerState = state.running;
                     cycleName = cycle;
-
                     updateDisplay(duration);
 
                     //start the timer. //Timer 'ticks' every second
@@ -91,7 +82,10 @@ $(document).ready(function () {
 
         this.stop = () => {
             timerState = state.stopped;
+            cycleName = cycle.ready;
+            updateDisplay();
             console.log('state: ' + timerState);
+            console.log('cycle: ' + cycleName);
         }
 
         this.pause = () => {
@@ -100,12 +94,14 @@ $(document).ready(function () {
                 //resume if paused
                 case 'paused':
                     timerState = state.running;
+                    updateDisplay();
                     console.log('state: ' + timerState);
                     break;
 
                     //pause if running
                 case 'running':
                     timerState = state.paused;
+                    updateDisplay();
                     console.log('state: ' + timerState);
                     break;
 
@@ -117,7 +113,40 @@ $(document).ready(function () {
         }
     }
 
+
     var myTimer = new Timer();
+
+
+    //initialise display
+    updateDisplay($('#workValue').val());
+
+    function updateDisplay(secs) {
+        // console.log('current cycle: ' + myTimer.getCycleName());
+        // console.log('current timer state: ' + myTimer.getTimerState());
+
+        if (secs != undefined) {
+            //format time to mm:ss
+            var date = new Date(null);
+            date.setSeconds(secs);
+            //display formatted time
+            $('#countdown').text(date.toISOString().substr(14, 5));
+        }
+
+        //update mode text
+        $('#timerState').text(myTimer.getTimerState());
+        $('#currentCycle').text(myTimer.getCycleName());
+
+        //update icon
+        // $('#status').removeClass('rest-status');
+        // $('#status').addClass('work-status');
+
+        // $('#status').removeClass('work-status');
+        // $('#status').addClass('rest-status');
+    }
+
+
+
+
 
     $('#start').click(function () {
 
@@ -128,15 +157,11 @@ $(document).ready(function () {
         function starTimer() {
             //work timer
             console.log('work');
-            $('#status').removeClass('rest-status');
-            $('#status').addClass('work-status');
             myTimer.start($('#workValue').val(), cycle.work)
                 .then(() => {
 
                     //rest timer
                     console.log('rest');
-                    $('#status').removeClass('work-status');
-                    $('#status').addClass('rest-status');
                     return (myTimer.start($('#restValue').val(), cycle.rest));
                 }).then(() => {
 
@@ -154,6 +179,7 @@ $(document).ready(function () {
     $('#pause').click(function () {
         console.log('pause clicked');
         myTimer.pause();
+
     });
 
     $('#reset').click(function () {
