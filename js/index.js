@@ -1,31 +1,46 @@
 $(document).ready(function () {
-
-    //initialise touchspin controls
-    $("input[name='Work']").TouchSpin({});
-
-    $("#workValue").change(function () {
-        // alert($('#workValue').val());
-        // alert("work has been changed");
-    });
-
-    $("input[name='Rest']").TouchSpin({});
-
-
-
-    // object just adds some consitency when assigning values (helps with typos)
+    // objects used for consitency when assigning values (helps with typos)
     var state = {
         "stopped": "stopped",
         "running": "running",
         "paused": "paused"
     }
 
-    // object just adds some consitency when assigning values (helps with typos)
     var cycle = {
         "ready": "ready",
         "work": "work",
         "rest": "rest"
     }
-    //timer object provides timing and screen updating operations
+
+    /**
+     * StartPauseButton constructor manages the button states */
+    var StartPauseButton = function () {
+        let isStartStatus = true;
+        this.isStart = () => isStartStatus;
+
+        this.setStart = () => {
+            isStartStatus = true;
+            $('#startPause').text('Start');
+        }
+
+        this.setPause = () => {
+            isStartStatus = false;
+            $('#startPause').text('Pause');
+        }
+
+        this.toggle = () => {
+            if (isStartStatus) {
+                isStartStatus = false;
+                $('#startPause').text('Pause');
+            } else {
+                isStartStatus = true;
+                $('#startPause').text('Start');
+            }
+        }
+    };
+
+    /**
+     * Timer constructor manages timing operations */
     var Timer = function () {
         //private properties
         var timerState = state.stopped;
@@ -46,7 +61,7 @@ $(document).ready(function () {
 
             return new Promise((resolve, reject) => {
 
-                //start the timer if its currently stopped
+                //start the timer only if its stopped
                 if (timerState === state.stopped) {
 
                     timerState = state.running;
@@ -113,16 +128,11 @@ $(document).ready(function () {
         }
     }
 
-
-    var myTimer = new Timer();
-
-
-    //initialise display
-    updateDisplay($('#workValue').val());
-
+    /**
+     * updateDisplay constructor updates the timer display and user messaging */
     function updateDisplay(secs) {
-        // console.log('current cycle: ' + myTimer.getCycleName());
-        // console.log('current timer state: ' + myTimer.getTimerState());
+        // console.log('current cycle: ' + pomodoroTimer.getCycleName());
+        // console.log('current timer state: ' + pomodoroTimer.getTimerState());
 
         if (secs != undefined) {
             //format time to mm:ss
@@ -133,8 +143,8 @@ $(document).ready(function () {
         }
 
         //update mode text
-        $('#timerState').text(myTimer.getTimerState());
-        $('#currentCycle').text(myTimer.getCycleName());
+        $('#timerState').text(pomodoroTimer.getTimerState());
+        $('#currentCycle').text(pomodoroTimer.getCycleName());
 
         //update icon
         // $('#status').removeClass('rest-status');
@@ -144,48 +154,70 @@ $(document).ready(function () {
         // $('#status').addClass('rest-status');
     }
 
+    /**
+     * starTimer chains the Work and Rest timers to run indefinitely */
+    function starTimer() {
+        //work timer
+        console.log('work');
+        pomodoroTimer.start($('#workValue').val(), cycle.work)
+            .then(() => {
 
+                //rest timer
+                console.log('rest');
+                return (pomodoroTimer.start($('#restValue').val(), cycle.rest));
+            }).then(() => {
 
+                //cycle the timer indefinetely until stopped
+                console.log('next cycle');
+                return (starTimer());
 
+            }).catch((stop) => {
+                console.log(stop.message);
+            });
+    }
 
+    //initialise touchspin controls
+    $("input[name='Work']").TouchSpin({});
+    $("input[name='Rest']").TouchSpin({});
+
+    //create Objects
+    var pomodoroTimer = new Timer();
+    var startPauseButton = new StartPauseButton();
+
+    //initialise display
+    updateDisplay($('#workValue').val());
+
+    //accept user inputs
     $('#start').click(function () {
-
         console.log('start clicked');
         starTimer();
-
-
-        function starTimer() {
-            //work timer
-            console.log('work');
-            myTimer.start($('#workValue').val(), cycle.work)
-                .then(() => {
-
-                    //rest timer
-                    console.log('rest');
-                    return (myTimer.start($('#restValue').val(), cycle.rest));
-                }).then(() => {
-
-                    //cycle the timer indefinetely until stopped
-                    console.log('next cycle');
-                    return (starTimer());
-
-                }).catch((stop) => {
-                    console.log(stop.message);
-                });
-        }
-
     });
 
     $('#pause').click(function () {
         console.log('pause clicked');
-        myTimer.pause();
-
+        pomodoroTimer.pause();
     });
 
     $('#reset').click(function () {
         console.log('reset clicked');
-        myTimer.stop();
+        startPauseButton.setStart();
+        pomodoroTimer.stop();
         //re-initialise display
         updateDisplay($('#workValue').val());
+    });
+
+    $('#startPause').click(function () {
+        console.log('startPause clicked');
+
+        switch (pomodoroTimer.getTimerState()) {
+            case state.stopped:
+                startPauseButton.toggle();
+                starTimer();
+                break;
+            default:
+                startPauseButton.toggle();
+                pomodoroTimer.pause();
+        }
+
     });
 });
