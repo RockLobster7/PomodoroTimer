@@ -20,21 +20,27 @@ $(document).ready(function () {
 
         this.setStart = () => {
             isStartStatus = true;
-            $('#startPause').text('Start');
+            //            $('#startPause').text('Start');
+            $('#startPause').removeClass('fa-pause');
+            $('#startPause').addClass('fa-play');
         }
 
         this.setPause = () => {
             isStartStatus = false;
-            $('#startPause').text('Pause');
+            //            $('#startPause').text('Pause');
+            $('#startPause').removeClass('fa-play');
+            $('#startPause').addClass('fa-pause');
         }
 
         this.toggle = () => {
             if (isStartStatus) {
                 isStartStatus = false;
-                $('#startPause').text('Pause');
+                $('#startPause').removeClass('fa-play');
+                $('#startPause').addClass('fa-pause');
             } else {
                 isStartStatus = true;
-                $('#startPause').text('Start');
+                $('#startPause').removeClass('fa-pause');
+                $('#startPause').addClass('fa-play');
             }
         }
     };
@@ -96,6 +102,7 @@ $(document).ready(function () {
         }
 
         this.stop = () => {
+            clearInterval(counterID);
             timerState = state.stopped;
             cycleName = cycle.ready;
             updateDisplay();
@@ -129,7 +136,7 @@ $(document).ready(function () {
     }
 
     /**
-     * updateDisplay constructor updates the timer display and user messaging */
+     * updateDisplay constructor updates the timer display and end-user messaging */
     function updateDisplay(secs) {
         // console.log('current cycle: ' + pomodoroTimer.getCycleName());
         // console.log('current timer state: ' + pomodoroTimer.getTimerState());
@@ -188,24 +195,6 @@ $(document).ready(function () {
     updateDisplay($('#workValue').val());
 
     //accept user inputs
-    $('#start').click(function () {
-        console.log('start clicked');
-        starTimer();
-    });
-
-    $('#pause').click(function () {
-        console.log('pause clicked');
-        pomodoroTimer.pause();
-    });
-
-    $('#reset').click(function () {
-        console.log('reset clicked');
-        startPauseButton.setStart();
-        pomodoroTimer.stop();
-        //re-initialise display
-        updateDisplay($('#workValue').val());
-    });
-
     $('#startPause').click(function () {
         console.log('startPause clicked');
 
@@ -219,5 +208,13 @@ $(document).ready(function () {
                 pomodoroTimer.pause();
         }
 
+    });
+
+    $('#reset').click(function () {
+        console.log('reset clicked');
+        startPauseButton.setStart();
+        pomodoroTimer.stop();
+        //re-initialise display
+        updateDisplay($('#workValue').val());
     });
 });
