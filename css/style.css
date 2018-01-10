@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
-
 html {
 	height: 100%
 }
@@ -110,14 +109,18 @@ a:focus {
 	content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAP5SURBVGhD7VlJaBRBFB0XVFBRDx7EJRhnpseBBFQ8iQR30ZsQcMmkatwIanAhehEMkYAYPAUFhUgQcjCTqZoEgwuIMYoXEZeDIm5BCR4UNcY1Komvqv+McZwcMt093YN58OnpV039evX/r6ru8Y3gf4O/OTrdEOytIflJovITRrx8GUQMBAXvICo/EYyziBYieRNR+QlDsvNKCK4VROUfkE6LEYk+Q/AP4diuSURrhGOl4+int4GUCiES3ToaglcRrTEvwWcHBetFlE4R5U34WyILMMg3ZpEz4RvwjaImjUCcr0u1eRU6EkglikQiUwqBrzGF8FqivIWCRjYBe8ZDGmSjL1Y6hppSCAm+MCjZJ4jpV6KJ9hYCku0wI8FuZhIRSPClEPCRonWcaO8BdXFbRyPBVhCVQrhtmx/tPSSiIZNQT0CnleS/UMA/Mw0Sg2/WIiU7nV78noJfbJ9lzjZ7RVQK/ouV45VAVRvp+4nnoFYnzPpVWA1RKRitWw0tUrL7ROUnIGQyhHQGRXQ/USOwjMLYzimBeLQwF+bYiqbyH4X6zsxz5w0HzXpybS9UNMhBH3bsO84Ze0pi2sm1vRgk5CVRjiAg2HotBCeDUIItUhZsKS9Wyzc9Yg05F5Jugn3H0n2QHsseuRfCepLphn3pHurzh/Yv2Fp6NDu4EJG/agQC9pFAay9ibgvB/VbtX7CzRGUH1yOSYIfIv7Vl2XUhkp/Q/iGIqOzggdTqVLxqJyo7uClEHVnUKwC4b5ZfAdwSUnylbCJ8XjN944XMKlwQchcDP4I95IX2K3iX+hhOj2WPpBBYN1GOYJCQPybYjXAsMocesYjq6tFqd0VE+ohxBMkP3tj4nuN6FPdLqMk+UOcDwbayuUTZDqRQLQk5TJT9QDSaKNSVRNkO9P9A+cBKtZIo+xESfJUphD9z4ku6EedrVP9qQSnpqB5LtANQdaJOo6aYY8TaArWYoAaf6L4l30u0czASvEi/GwjeH5J8D9GWUNS+eRo2vOs6Grjm7AsklsiNqfcD1I2VpVEvt0hVEvE40Fw+k5rsg559yUuHsHOw5DqPtzd+SR3ogjJaRu1DmvrQjRStg4BHuNd9QMQX2O7BzyUNkd+gUo+GNUwgvOjkK8wcrMtm6XiCWXuvOxHsFq4xNwyp+xpXdUSpo2ENH+hApw+EXHDjLwD1N4RKOTWGkIyWED18qB0ceWz+KYPZCYktM6jJcYRk+WpEoUv7FqyV6OyBzpZjVnrNyPDPENaA40MF7v8pSquGWd+E/qvgpwP3Zn3gwJh9oadBh1iyy6nOc2Bq8lAf1Y78Fx+Qkfno/ACsHrN2xiGrU/tUQYJNJbcjyFP4fL8B0IYWsrURMjEAAAAASUVORK5CYII=");
 }
 
+#currentCycle {
+	font-size: 2em;
+}
+
 .btn-group .button {
 	width: 70px;
 	height: 70px;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
-	/*	display: inline-block;*/
-	/*	float: left;*/
+/*		display: inline-block;*/
+/*		float: right;*/
 	display: block;
 	border: none;
 	outline: 0;
@@ -146,7 +149,8 @@ a:focus {
 	background-color: #ff6868;
 }
 
-.btn-red:hover, .btn-red:focus {
+.btn-red:hover,
+.btn-red:focus {
 	background-color: hsl(4, 70%, 48%);
 }
 
@@ -155,3 +159,10 @@ a:focus {
 	font-weight: 100
 }
 
+#startPause {
+	font-size: 1.5em;
+}
+
+#reset {
+	font-size: 1.5em;
+}

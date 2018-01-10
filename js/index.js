@@ -76,7 +76,7 @@ $(document).ready(function () {
 
                     //start the timer. //Timer 'ticks' every second
                     counterID = setInterval(function () {
-
+                        console.log('Starting counterID:' + counterID);
                         //timer will run until we reach zero
                         if (duration > 0) {
 
@@ -87,13 +87,19 @@ $(document).ready(function () {
                                     break;
 
                                 case state.stopped:
-                                    clearInterval(counterID);
+                                    // clearInterval(counterID);  //delete this line**
+                                    updateDisplay();
+                                    console.log('Manually Stopping counterID:' + counterID);
                                     reject(new Error('Stop'));
                             }
                         } else {
                             //once the display reaches zero, end the timer and resolve the promise
-                            clearInterval(counterID);
+							//clearing the interval timer here seems to make timer unstable
+                			//perhaps because we're destroying the object while its still in use
+                            // clearInterval(counterID);
                             timerState = state.stopped;
+                            // console.log('End of Timer Stopping counterID:' + counterID);
+                            console.log("resolving promise");
                             resolve();
                         }
                     }, 1000);
@@ -105,7 +111,9 @@ $(document).ready(function () {
             clearInterval(counterID);
             timerState = state.stopped;
             cycleName = cycle.ready;
-            updateDisplay();
+            //            updateDisplay();
+
+            console.log('End of Timer Stopping counterID:' + counterID);
             console.log('state: ' + timerState);
             console.log('cycle: ' + cycleName);
         }
@@ -153,30 +161,45 @@ $(document).ready(function () {
         $('#timerState').text(pomodoroTimer.getTimerState());
         $('#currentCycle').text(pomodoroTimer.getCycleName());
 
-        //update icon
-        // $('#status').removeClass('rest-status');
-        // $('#status').addClass('work-status');
-
-        // $('#status').removeClass('work-status');
-        // $('#status').addClass('rest-status');
+        //update status icon
+        switch (pomodoroTimer.getCycleName()) {
+            case "work":
+                $('#status').removeClass('rest-status');
+                $('#status').addClass('work-status');
+                break;
+            case "rest":
+                $('#status').removeClass('work-status');
+                $('#status').addClass('rest-status');
+                break;
+            default:
+                $('#status').removeClass('rest-status');
+                $('#status').removeClass('work-status');
+        }
     }
 
     /**
      * starTimer chains the Work and Rest timers to run indefinitely */
-    function starTimer() {
+    function startTimer() {
         //work timer
         console.log('work');
         pomodoroTimer.start($('#workValue').val(), cycle.work)
             .then(() => {
+                //clearing the interval timer here because the timer becomes unstable if we clear it within the Timer object
+                clearInterval(pomodoroTimer.getCounterID());
+                console.log('End of Timer Stopping counterID:' + pomodoroTimer.getCounterID());
 
                 //rest timer
                 console.log('rest');
                 return (pomodoroTimer.start($('#restValue').val(), cycle.rest));
             }).then(() => {
 
+                //clearing the interval timer here because the timer becomes unstable if we clear it within the Timer object
+                clearInterval(pomodoroTimer.getCounterID());
+                console.log('End of Timer Stopping counterID:' + pomodoroTimer.getCounterID());
+
                 //cycle the timer indefinetely until stopped
                 console.log('next cycle');
-                return (starTimer());
+                return (startTimer());
 
             }).catch((stop) => {
                 console.log(stop.message);
@@ -201,13 +224,12 @@ $(document).ready(function () {
         switch (pomodoroTimer.getTimerState()) {
             case state.stopped:
                 startPauseButton.toggle();
-                starTimer();
+                startTimer();
                 break;
             default:
                 startPauseButton.toggle();
                 pomodoroTimer.pause();
         }
-
     });
 
     $('#reset').click(function () {
