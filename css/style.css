@@ -4,41 +4,11 @@ html {
 }
 
 body {
-	overflow: hidden;
+	/*	overflow: hidden;*/
 	font-family: 'Roboto', sans-serif;
+	/*	background: #3b3b3b;*/
+	/*	background: #4c384a;*/
 }
-
-
-/*font sizes
-https://stackoverflow.com/questions/14537611/bootstrap-responsive-text-size
-
-If we set the base font size (the body font size), then everything will change if we use EM units.
-
-*/
-
-
-/*DYNAMICALLY RESPONSIVE TO SCREEN SIZE*/
-
-
-/*1vw = 1% of viewport width
-1vh = 1% of viewport height
-1vmin = 1vw or 1vh, whichever is smaller
-1vmax = 1vw or 1vh, whichever is larger*/
-
-
-/*
-h1 {
-  font-size: 5.9vw;
-}
-h2 {
-  font-size: 3.0vh;
-}
-p {
-  font-size: 2vmin;
-}*/
-
-
-/*SNAP TO SCREEN SIZE*/
 
 
 /*.col-xs-*/
@@ -46,9 +16,11 @@ p {
 @media screen and (max-width: 767px) {
 	body {
 		font-size: 14px;
+		/*		margin-top: 3em;*/
 	}
 	body {
-		color: red;
+		/*		color: #dbdbdb;*/
+		color: #c4d4e0;
 	}
 }
 
@@ -101,34 +73,46 @@ a:focus {
 	transition: .3s;
 }
 
-.work-status {
+.work-status~ {
 	content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANYSURBVGhD7Zg7aBRRFIaPD0QF8Y0KgoWKhYoIdhaxEpGg2Z1ZokERtJDYpAgW2mhArCQYBEEkhYgiCtrYWcRCgmCI7uxDIUW0EATFFFFIkGz87/Wfwc3O7M7s7M1mwn5w2d1zzj3n/nMfM7PSooUhxs/JSseS244tP3K2zCalYcwzaAUnLce1EAjo1w5bSjlLfiao/aKg6awt+wWGb8pQsGSvVpYgMPY7eoYs6RP9BY2+RIFxd6uxY1buLj4hTpesT1yzpbdCSJJbuRD/k2FhN1t+VwjhsksUGPci3uz0JYqmCsnbsmGoTZbzZyyaJgSPEntwZE5hoz6iKRZNE4I6A17hBoBc8y9kpF1Wo86ErpeSAzTHArnmXwhqXNC1LBmmKTbI1xQh71jrLE2xQa7GCMlnZOtIRtbyZyAodEgXxMvbsC2raPYYtWVzPSdZbCHvT8o6LJFbSDCNweVpDgT5B3Ud9KHJ40NK9iGPetsbQ64UzaFAzvqEzF6Tpeh0Hu07E6gB3KDbFy0az0QYZKmQlt00exQ7ZCP8WXcciBvCS95BuquC+OhCcDWPoMioGx+2IGJ72OcVTRWoZQX/pTkX6P6n07KJIb4gNryQXKfshIjnbhw6fYGIDN1VQdIliC/qvpakaQ7k/yXLehOo1Yu9uIIhZcAfTohKoJK5MSjS57dZg1CzqPqh0NcomxmPMbsg4K1bF9/76SoDvvAzgiSP3Rh0iLQhEf9E97XkOk01mTsr+Jx00tJBdxnwR9sjuELHEFxwYyGm5v5wTskWDuZPNiXbaQ5EHyS2XEQfb5/gc7CYkm0MqQD+6Js96obEVb3K3C9oCgQC2tDqOUiiC3GpmHpb3tDlwav7Wee25CjNvqg/1xBbYuw4vodeuuhTvxAXvSEteYC+PTR5YEDtLDCmRNHsi3oyQNwzCLgS5SBRoEZ8IdWAkJfMe5kmIyC/OSG4e+9A4hlc4alaN7S4GBWC2bjJnA9pMgZqmBGib6D8UzyXlsM0G8OYEOTpZL4sTUZBHUNCLHnNfN00GUXVUfUaKkTdgdX9AEknP56QNTQbxYiQpxlZhjwDSHqGJuMYEdIMWkIWGi0hCw1fITg6M4lreB+qEJLk9k+IJfeS3vBy1sXV1qJFYxH5C1rorZWJkb7IAAAAAElFTkSuQmCC");
 }
 
-.rest-status {
+.rest-status~ {
 	content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAP5SURBVGhD7VlJaBRBFB0XVFBRDx7EJRhnpseBBFQ8iQR30ZsQcMmkatwIanAhehEMkYAYPAUFhUgQcjCTqZoEgwuIMYoXEZeDIm5BCR4UNcY1Komvqv+McZwcMt093YN58OnpV039evX/r6ru8Y3gf4O/OTrdEOytIflJovITRrx8GUQMBAXvICo/EYyziBYieRNR+QlDsvNKCK4VROUfkE6LEYk+Q/AP4diuSURrhGOl4+int4GUCiES3ToaglcRrTEvwWcHBetFlE4R5U34WyILMMg3ZpEz4RvwjaImjUCcr0u1eRU6EkglikQiUwqBrzGF8FqivIWCRjYBe8ZDGmSjL1Y6hppSCAm+MCjZJ4jpV6KJ9hYCku0wI8FuZhIRSPClEPCRonWcaO8BdXFbRyPBVhCVQrhtmx/tPSSiIZNQT0CnleS/UMA/Mw0Sg2/WIiU7nV78noJfbJ9lzjZ7RVQK/ouV45VAVRvp+4nnoFYnzPpVWA1RKRitWw0tUrL7ROUnIGQyhHQGRXQ/USOwjMLYzimBeLQwF+bYiqbyH4X6zsxz5w0HzXpybS9UNMhBH3bsO84Ze0pi2sm1vRgk5CVRjiAg2HotBCeDUIItUhZsKS9Wyzc9Yg05F5Jugn3H0n2QHsseuRfCepLphn3pHurzh/Yv2Fp6NDu4EJG/agQC9pFAay9ibgvB/VbtX7CzRGUH1yOSYIfIv7Vl2XUhkp/Q/iGIqOzggdTqVLxqJyo7uClEHVnUKwC4b5ZfAdwSUnylbCJ8XjN944XMKlwQchcDP4I95IX2K3iX+hhOj2WPpBBYN1GOYJCQPybYjXAsMocesYjq6tFqd0VE+ohxBMkP3tj4nuN6FPdLqMk+UOcDwbayuUTZDqRQLQk5TJT9QDSaKNSVRNkO9P9A+cBKtZIo+xESfJUphD9z4ku6EedrVP9qQSnpqB5LtANQdaJOo6aYY8TaArWYoAaf6L4l30u0czASvEi/GwjeH5J8D9GWUNS+eRo2vOs6Grjm7AsklsiNqfcD1I2VpVEvt0hVEvE40Fw+k5rsg559yUuHsHOw5DqPtzd+SR3ogjJaRu1DmvrQjRStg4BHuNd9QMQX2O7BzyUNkd+gUo+GNUwgvOjkK8wcrMtm6XiCWXuvOxHsFq4xNwyp+xpXdUSpo2ENH+hApw+EXHDjLwD1N4RKOTWGkIyWED18qB0ceWz+KYPZCYktM6jJcYRk+WpEoUv7FqyV6OyBzpZjVnrNyPDPENaA40MF7v8pSquGWd+E/qvgpwP3Zn3gwJh9oadBh1iyy6nOc2Bq8lAf1Y78Fx+Qkfno/ACsHrN2xiGrU/tUQYJNJbcjyFP4fL8B0IYWsrURMjEAAAAASUVORK5CYII=");
 }
 
 #currentCycle {
-	font-size: 2em;
+	font-size: 1.5em;
 }
 
+
+/*
+#control-box {
+	height: 10em
+}
+*/
+
 .btn-group .button {
-	width: 70px;
-	height: 70px;
+	color: #FFFFFF;
+	width: 50px;
+	height: 50px;
 	text-align: center;
+	vertical-align: middle;
 	text-decoration: none;
 	cursor: pointer;
-/*		display: inline-block;*/
-/*		float: right;*/
-	display: block;
-	border: none;
+	border: 1px solid #BDBDBD;
 	outline: 0;
 	transition: .05s;
+	border-radius: 2em;
+	margin-top: 1.5em;
+	/*	line-height: 0px;*/
+	/*		display: block;*/
+	/*	display: inline-block;*/
+	/*	float: right;*/
 }
 
 .btn-group .button:active {
-	background: pink;
+	background: #BDBDBD;
 }
 
 .btn-green {
@@ -156,13 +140,178 @@ a:focus {
 
 #countdown {
 	font-size: 9em;
-	font-weight: 100
+	font-weight: 100;
+	border-bottom: 1px dotted #BDBDBD;
+	margin-bottom: .1em;
 }
 
 #startPause {
-	font-size: 1.5em;
+	font-size: 1em;
 }
 
 #reset {
-	font-size: 1.5em;
+	font-size: 1em;
+}
+
+.TouchSpin-bg {
+	padding: 0;
+	background: #4c384a;
+	color: #c4d4e0;
+	border-color: #7B7B7B;
+}
+
+.TouchSpin-btn {
+	color: #C4D4E0;
+	background-color: #4C384A;
+	border-color: #7B7B7B;
+}
+
+.TouchSpin-btn:hover,
+.TouchSpin-btn:focus,
+.TouchSpin-btn:active,
+.TouchSpin-btn.active,
+.open .dropdown-toggle.TouchSpin-btn {
+	color: #C4D4E0;
+	background-color: #7A5B77;
+	border-color: #7B7B7B;
+}
+
+.TouchSpin-btn:active,
+.TouchSpin-btn.active,
+.open .dropdown-toggle.TouchSpin-btn {
+	background-image: none;
+}
+
+.TouchSpin-btn.disabled,
+.TouchSpin-btn[disabled],
+fieldset[disabled] .TouchSpin-btn,
+.TouchSpin-btn.disabled:hover,
+.TouchSpin-btn[disabled]:hover,
+fieldset[disabled] .TouchSpin-btn:hover,
+.TouchSpin-btn.disabled:focus,
+.TouchSpin-btn[disabled]:focus,
+fieldset[disabled] .TouchSpin-btn:focus,
+.TouchSpin-btn.disabled:active,
+.TouchSpin-btn[disabled]:active,
+fieldset[disabled] .TouchSpin-btn:active,
+.TouchSpin-btn.disabled.active,
+.TouchSpin-btn[disabled].active,
+fieldset[disabled] .TouchSpin-btn.active {
+	background-color: #4C384A;
+	border-color: #7B7B7B;
+}
+
+.TouchSpin-btn .badge {
+	color: #4C384A;
+	background-color: #7B7B7B;
+}
+
+#masthead {
+	height: 2em;
+	background: #212121;
+	margin-bottom: .5em;
+}
+
+.mac-buttons {
+	padding-left: 10px;
+	padding-top: 8px;
+	float: left;
+	line-height: 0px;
+	display: inline-block;
+}
+
+.mac-close {
+	background: #ff5c5c;
+	border: 1px solid #e33e41;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.mac-minimize {
+	background: #ffbd4c;
+	border: 1px solid #e09e3e;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.mac-zoom {
+	background: #00ca56;
+	border: 1px solid #14ae46;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+
+/*NEUTRAL THEME*/
+
+.neutral-bg {
+	background: #607D8B;
+}
+
+.neutral-dark {
+	background: #455A64
+}
+
+.neutral-secondary-text {
+	color: #CFD8DC;
+}
+
+.neutral-primary-text {
+	color: #FFFFFF;
+}
+
+.neutral-button {
+	background: #455A64;
+}
+
+.neutral-TouchSpin {
+	color: #FFFFFF;
+	background-color: #455A64;
+	border-color: #BDBDBD;
+}
+
+.neutral-TouchSpin:hover,
+.neutral-TouchSpin:focus,
+.neutral-TouchSpin:active,
+.neutral-TouchSpin.active,
+.open .dropdown-toggle.neutral-TouchSpin {
+	color: #FFFFFF;
+	background-color: #455A64;
+	border-color: #BDBDBD;
+}
+
+.neutral-TouchSpin:active,
+.neutral-TouchSpin.active,
+.open .dropdown-toggle.neutral-TouchSpin {
+	background-image: none;
+}
+
+.neutral-TouchSpin.disabled,
+.neutral-TouchSpin[disabled],
+fieldset[disabled] .neutral-TouchSpin,
+.neutral-TouchSpin.disabled:hover,
+.neutral-TouchSpin[disabled]:hover,
+fieldset[disabled] .neutral-TouchSpin:hover,
+.neutral-TouchSpin.disabled:focus,
+.neutral-TouchSpin[disabled]:focus,
+fieldset[disabled] .neutral-TouchSpin:focus,
+.neutral-TouchSpin.disabled:active,
+.neutral-TouchSpin[disabled]:active,
+fieldset[disabled] .neutral-TouchSpin:active,
+.neutral-TouchSpin.disabled.active,
+.neutral-TouchSpin[disabled].active,
+fieldset[disabled] .neutral-TouchSpin.active {
+	background-color: #455A64;
+	border-color: #BDBDBD;
+}
+
+.neutral-TouchSpin .badge {
+	color: #455A64;
+	background-color: #FFFFFF;
 }
