@@ -20,16 +20,12 @@ $(document).ready(function () {
 
         this.setStart = () => {
             isStartStatus = true;
-            //            $('#startPause').text('Start');
-            $('#startPause').removeClass('fa-pause');
-            $('#startPause').addClass('fa-play');
+             $('#startPause').switchClass('fa-pause', 'fa-play');
         }
 
         this.setPause = () => {
             isStartStatus = false;
-            //            $('#startPause').text('Pause');
-            $('#startPause').removeClass('fa-play');
-            $('#startPause').addClass('fa-pause');
+            $('#startPause').switchClass('fa-play', 'fa-pause');
         }
 
         this.toggle = () => {
@@ -94,8 +90,8 @@ $(document).ready(function () {
                             }
                         } else {
                             //once the display reaches zero, end the timer and resolve the promise
-							//clearing the interval timer here seems to make timer unstable
-                			//perhaps because we're destroying the object while its still in use
+                            //clearing the interval timer here seems to make timer unstable
+                            //perhaps because we're destroying the object while its still in use
                             // clearInterval(counterID);
                             timerState = state.stopped;
                             // console.log('End of Timer Stopping counterID:' + counterID);
@@ -164,17 +160,38 @@ $(document).ready(function () {
         //update status icon
         switch (pomodoroTimer.getCycleName()) {
             case "work":
-                $('#status').removeClass('rest-status');
-                $('#status').addClass('work-status');
+                $('#status').switchClass('rest-status', 'work-status');
+                updateTheme("neutral", "blue");
+                updateTheme("green", "blue");
                 break;
             case "rest":
-                $('#status').removeClass('work-status');
-                $('#status').addClass('rest-status');
+                $('#status').switchClass('work-status', 'rest-status');
+                updateTheme("blue", "green");
                 break;
             default:
                 $('#status').removeClass('rest-status');
                 $('#status').removeClass('work-status');
+                updateTheme("blue", "neutral");
+                updateTheme("green", "neutral");
         }
+    }
+
+    function updateTheme(oldColour, newColour) {
+        $('#status-bar').switchClass(oldColour + "-status-bar", newColour + "-status-bar", 1000, "easeInOutQuad");
+        $('body').switchClass(oldColour + "-bg", newColour + "-bg", 1000, "easeInOutQuad")
+        $('input').switchClass(oldColour + "-TouchSpin", newColour + "-TouchSpin", 1000, "easeInOutQuad");
+        $('button').switchClass( oldColour + "-bg", newColour + "-bg", 1000, "easeInOutQuad");
+		
+		$('.timer-controls').switchClass( oldColour + "-timer-controls", newColour + "-timer-controls", 1000, "easeInOutQuad");
+
+                //************* */
+        // $("input[name='Work']").trigger("touchspin.uponce");
+        // $("input").trigger("touchspin.updatesettings", {
+        //     min: 5
+        // });
+        // $("input").trigger("touchspin.updatesettings", {
+        //     buttondown_class: 'btn blue-TouchSpin'
+        // });
     }
 
     /**
