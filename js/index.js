@@ -160,6 +160,7 @@ $(document).ready(function () {
         //update status icon
         switch (pomodoroTimer.getCycleName()) {
             case "work":
+            $('#currentCycle').addClass('currentCycle-working', 500, "easeInOutQuad");
                 $('#status').switchClass('rest-status', 'work-status');
                 updateTheme("neutral", "blue");
                 updateTheme("green", "blue");
@@ -169,8 +170,9 @@ $(document).ready(function () {
                 updateTheme("blue", "green");
                 break;
             default:
-                $('#status').removeClass('rest-status');
-                $('#status').removeClass('work-status');
+            $('#currentCycle').switchClass('currentCycle-working', 'currentCycle-ready', 500, "easeInOutQuad");
+                $('#status').removeClass('rest-status', 500, "easeInOutQuad");
+                $('#status').removeClass('work-status', 500, "easeInOutQuad");
                 updateTheme("blue", "neutral");
                 updateTheme("green", "neutral");
         }
@@ -199,7 +201,7 @@ $(document).ready(function () {
     function startTimer() {
         //work timer
         console.log('work');
-        pomodoroTimer.start($('#workValue').val(), cycle.work)
+        pomodoroTimer.start($('#workValue').val() * 60, cycle.work)
             .then(() => {
                 //clearing the interval timer here because the timer becomes unstable if we clear it within the Timer object
                 clearInterval(pomodoroTimer.getCounterID());
@@ -207,7 +209,7 @@ $(document).ready(function () {
 
                 //rest timer
                 console.log('rest');
-                return (pomodoroTimer.start($('#restValue').val(), cycle.rest));
+                return (pomodoroTimer.start($('#restValue').val() * 60, cycle.rest));
             }).then(() => {
 
                 //clearing the interval timer here because the timer becomes unstable if we clear it within the Timer object
@@ -232,7 +234,7 @@ $(document).ready(function () {
     var startPauseButton = new StartPauseButton();
 
     //initialise display
-    updateDisplay($('#workValue').val());
+    updateDisplay($('#workValue').val() * 60);
 
     //accept user inputs
     $('#startPause').click(function () {
@@ -254,6 +256,6 @@ $(document).ready(function () {
         startPauseButton.setStart();
         pomodoroTimer.stop();
         //re-initialise display
-        updateDisplay($('#workValue').val());
+        updateDisplay($('#workValue').val() * 60);
     });
 });

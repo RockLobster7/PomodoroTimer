@@ -14,8 +14,7 @@
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-	    crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
 	<!-- Animate and Font Awesome css -->
 	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
@@ -45,9 +44,8 @@
 
 		<div class="row ">
 			<div id="status-bar" class="col-xs-12 neutral-status-bar">
-				<div>
-					<img id="status"> </div>
-				<div id="currentCycle">ready</div>
+				<div id="status"></div>
+				<div id="currentCycle" class="">ready</div>
 			</div>
 		</div>
 		<div class="row">
@@ -57,42 +55,32 @@
 				</div>
 
 				<div class="row timer-controls neutral-timer-controls">
-					<div class="col-xs-1"></div>
+					<div class="col-xs-1 col-sm-3 col-md-4 "></div>
 
-					<div class="col-xs-5 text-center secondary-text">WORK
-						<input id="workValue" class="text-center neutral-TouchSpin" type="text" value="25" name="Work" data-bts-min="1" data-bts-max="60"
-						    data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round"
-						    data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class=""
-						    data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn neutral-TouchSpin"
-						    data-bts-button-up-class="btn neutral-TouchSpin" />
+					<div class="col-xs-5 col-sm-3 col-md-2 text-center secondary-text">WORK
+						<input id="workValue" class="text-center neutral-TouchSpin" type="text" value="25" name="Work" data-bts-min="1" data-bts-max="60" data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round" data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class="" data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn neutral-TouchSpin" data-bts-button-up-class="btn neutral-TouchSpin" />
 					</div>
-					<div class="col-xs-5 text-center secondary-text">REST
-						<input id="restValue" class="text-center neutral-TouchSpin" type="text" value="5" name="Rest" data-bts-min="1" data-bts-max="60"
-						    data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round"
-						    data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class=""
-						    data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn neutral-TouchSpin"
-						    data-bts-button-up-class="btn neutral-TouchSpin" />
+					<div class="col-xs-5 col-sm-3 col-md-2 text-center secondary-text">REST
+						<input id="restValue" class="text-center neutral-TouchSpin" type="text" value="5" name="Rest" data-bts-min="1" data-bts-max="60" data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round" data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class="" data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn neutral-TouchSpin" data-bts-button-up-class="btn neutral-TouchSpin" />
 					</div>
-					<div class="col-xs-1"></div>
+					<div class="col-xs-1 col-sm-3 col-md-4"></div>
 				</div>
 
 				<div class="row">
 
-					<div class="col-xs-1"></div>
-					<div class="btn-group col-xs-5 text-center">
+					<div class="col-xs-1 col-sm-3 col-md-4"></div>
+					<div class="btn-group col-xs-5 col-sm-3 col-md-2 text-center">
 						<button id="startPause" class="button neutral-bg fa fa-play " aria-hidden="true"></button>
 					</div>
-					<div class="btn-group col-xs-5 text-center">
+					<div class="btn-group col-xs-5 col-sm-3 col-md-2 text-center">
 						<button id="reset" class="button neutral-bg fa fa-repeat" aria-hidden="true"></button>
 					</div>
 
-					<div class="col-xs-1"></div>
+					<div class="col-xs-1 col-sm-3 col-md-3"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 	<!-- <a href="https://icons8.com">Icon pack by Icons8</a> -->
 </body>
 
